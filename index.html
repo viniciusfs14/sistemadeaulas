@@ -45,7 +45,7 @@
         /* --- HEADER --- */
         header {
             background: white;
-            padding: 0.5rem 5%; /* Ajustei padding para caber a logo */
+            padding: 0.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -55,12 +55,14 @@
             top: 0;
             z-index: 1000;
             height: 80px;
+            transition: height 0.3s;
         }
 
         .logo-header img {
-            height: 60px; /* Tamanho da logo no menu */
+            height: 60px;
             width: auto;
             display: block;
+            transition: height 0.3s;
         }
         
         .nav-links { display: flex; gap: 2rem; }
@@ -73,6 +75,7 @@
             border-radius: 4px;
             font-weight: bold;
             border: 1px solid var(--primary);
+            white-space: nowrap; /* Impede que o texto quebre no botão */
         }
         .btn-cta:hover { background: white; color: var(--primary); }
 
@@ -84,17 +87,18 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 80px 1rem 0 1rem; /* Padding top compensa o header */
+            padding: 100px 1rem 2rem 1rem;
         }
 
         .logo-hero {
-            width: 400px; /* Tamanho da logo grande no centro */
+            width: 400px;
+            max-width: 80%; /* Garante que não estoure a tela no celular */
             height: auto;
             margin-bottom: 2rem;
             animation: fadeInDown 1s ease-out;
         }
 
-        .hero-content { max-width: 800px; }
+        .hero-content { max-width: 800px; width: 100%; }
         
         .hero h1 {
             font-size: 3.5rem;
@@ -144,6 +148,7 @@
             overflow: hidden;
             box-shadow: 15px 15px 0px var(--primary);
             background-color: #ddd;
+            min-width: 300px; /* Garante largura mínima */
         }
 
         .carousel-slide {
@@ -155,17 +160,22 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 1s ease-in-out; /* Transição suave de 1s */
+            transition: opacity 1s ease-in-out;
         }
 
-        .carousel-slide.active {
-            opacity: 1;
-        }
+        .carousel-slide.active { opacity: 1; }
 
-        /* --- OUTROS ESTILOS MANTIDOS --- */
+        /* --- OUTROS ESTILOS --- */
         .features { padding: 5rem 10%; background: white; }
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
+        /* Grid responsivo melhorado */
+        .grid-cards { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem; 
+        }
+        
         .card { padding: 2rem; border: 1px solid #e2e8f0; border-radius: 8px; transition: transform 0.3s; background: var(--bg-light); }
         .card:hover { transform: translateY(-10px); border-color: var(--secondary); }
         .card i { font-size: 2rem; color: var(--secondary); margin-bottom: 1rem; }
@@ -175,15 +185,40 @@
 
         .contact { padding: 5rem 10%; text-align: center; background: var(--primary); color: white; }
         .contact h2 { color: white; margin-bottom: 1rem; }
-        .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; background-color: #25D366; color: white; font-size: 1.2rem; padding: 1rem 2rem; border-radius: 50px; margin-top: 2rem; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; background-color: #25D366; color: white; font-size: 1.2rem; padding: 1rem 2rem; border-radius: 50px; margin-top: 2rem; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-align: center; }
         .whatsapp-btn:hover { background-color: #1ebe57; transform: scale(1.05); }
 
+        /* =========================================
+           ADAPTAÇÃO PARA CELULAR (RESPONSIVIDADE)
+           ========================================= */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .about { flex-direction: column; }
-            .nav-links { display: none; }
-            .carousel-container { width: 100%; height: 350px; }
-            .logo-header img { height: 45px; }
+            /* Header Compacto */
+            header { padding: 0.5rem 1rem; height: 70px; }
+            .logo-header img { height: 40px; }
+            .nav-links { display: none; } /* Esconde menu de texto no celular */
+            .btn-cta { padding: 0.6rem 1rem; font-size: 0.9rem; }
+
+            /* Hero Section Ajustada */
+            .hero { padding-top: 110px; } /* Mais espaço para não ficar atrás do header */
+            .hero h1 { font-size: 2.2rem; } /* Título menor */
+            .hero p { font-size: 1rem; }
+            .math-symbol { font-size: 3rem !important; opacity: 0.03; } /* Símbolos menores */
+
+            /* Seções Gerais */
+            .features, .about, .contact { padding: 3rem 5%; } /* Menos margem lateral */
+            .section-title { font-size: 2rem; margin-bottom: 2rem; }
+
+            /* Sobre / Carrossel */
+            .about { flex-direction: column; gap: 2rem; }
+            .carousel-container { 
+                width: 100%; 
+                height: 300px; /* Carrossel mais baixo no celular */
+                box-shadow: 8px 8px 0px var(--primary); /* Sombra menor */
+                min-width: auto;
+            }
+
+            /* Botão Whatsapp */
+            .whatsapp-btn { width: 100%; justify-content: center; font-size: 1rem; }
         }
     </style>
 </head>
@@ -196,9 +231,8 @@
 
      <header>
 
-        <div class="logo">
-            <i class="ph ph-graduation-cap"></i>
-            Prof. Corujinha
+        <div class="logo-header">
+            <img src="fotos/logo.png" alt="Logo Prof. Corujinha">
         </div>
         <nav class="nav-links">
             <a href="#inicio">Início</a>
