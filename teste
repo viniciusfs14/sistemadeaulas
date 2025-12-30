@@ -1,0 +1,12 @@
+ <header>
+        <div class="logo">
+            <i class="ph ph-graduation-cap"></i>
+            Prof. Corujinha
+        </div>
+        <nav class="nav-links">
+            <a href="#inicio">Início</a>
+            <a href="#metodologia">Metodologia</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+        <a href="#contato" class="btn-cta">Agendar Aula</a>
+    </header>
