@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Corujinha | Aulas de Matemática</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- VARIÁVEIS E RESET --- */
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #fca311;
+            --bg-light: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --paper-grid: rgba(30, 58, 138, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--primary); }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- BACKGROUND --- */
+        .grid-bg {
+            background-image: 
+                linear-gradient(var(--paper-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--paper-grid) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: white;
+            padding: 0.5rem 5%; /* Ajustei padding para caber a logo */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .logo-header img {
+            height: 60px; /* Tamanho da logo no menu */
+            width: auto;
+            display: block;
+        }
+        
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a:hover { color: var(--secondary); font-weight: bold;}
+        
+        .btn-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid var(--primary);
+        }
+        .btn-cta:hover { background: white; color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 1rem 0 1rem; /* Padding top compensa o header */
+        }
+
+        .logo-hero {
+            width: 400px; /* Tamanho da logo grande no centro */
+            height: auto;
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero-content { max-width: 800px; }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .math-symbol {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.05;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CARROSSEL DE FOTOS --- */
+        .about {
+            padding: 5rem 10%;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            background-color: var(--bg-light);
+        }
+
+        .carousel-container {
+            flex: 1;
+            height: 450px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 15px 15px 0px var(--primary);
+            background-color: #ddd;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Transição suave de 1s */
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        /* --- OUTROS ESTILOS MANTIDOS --- */
+        .features { padding: 5rem 10%; background: white; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { padding: 2rem; border: 1px solid #e2e8f0; border-radius: 8px; transition: transform 0.3s; background: var(--bg-light); }
+        .card:hover { transform: translateY(-10px); border-color: var(--secondary); }
+        .card i { font-size: 2rem; color: var(--secondary); margin-bottom: 1rem; }
+        
+        .about-text { flex: 1; }
+        .about-text h2 { margin-bottom: 1.5rem; }
+
+        .contact { padding: 5rem 10%; text-align: center; background: var(--primary); color: white; }
+        .contact h2 { color: white; margin-bottom: 1rem; }
+        .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; background-color: #25D366; color: white; font-size: 1.2rem; padding: 1rem 2rem; border-radius: 50px; margin-top: 2rem; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .whatsapp-btn:hover { background-color: #1ebe57; transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about { flex-direction: column; }
+            .nav-links { display: none; }
+            .carousel-container { width: 100%; height: 350px; }
+            .logo-header img { height: 45px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="math-symbol" style="top: 20%; left: 10%; font-size: 5rem;">∫</div>
+    <div class="math-symbol" style="top: 15%; right: 15%; font-size: 4rem;">π</div>
+    <div class="math-symbol" style="top: 70%; left: 5%; font-size: 6rem;">∑</div>
+    <div class="math-symbol" style="top: 80%; right: 10%; font-size: 3rem;">√x</div>
+
+     <header>
+
+        <div class="logo">
+            <i class="ph ph-graduation-cap"></i>
+            Prof. Corujinha
+        </div>
+        <nav class="nav-links">
+            <a href="#inicio">Início</a>
+            <a href="#metodologia">Metodologia</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+        <a href="#contato" class="btn-cta">Agendar Aula</a>
+    </header>
+
+    <section id="inicio" class="hero grid-bg">
+        <img src="fotos/logo.png" alt="Logo Prof. Corujinha" class="logo-hero">
+        
+        <div class="hero-content">
+            <h1>A Matemática não precisa ser um bicho de sete cabeças.</h1>
+            <p>Aulas particulares personalizadas que transformam dificuldades em confiança e notas altas.</p>
+            <a href="#contato" class="btn-cta" style="font-size: 1.1rem; padding: 1rem 2rem;">Começar Agora</a>
+        </div>
+    </section>
+
+    <section id="metodologia" class="features">
+        <h2 class="section-title">Por que estudar com o Corujinha?</h2>
+        <div class="grid-cards">
+            <div class="card">
+                <i class="ph ph-strategy"></i>
+                <h3>Método Personalizado</h3>
+                <p>Cada aluno aprende de um jeito. Identificamos as dificuldades específicas e criamos um plano de estudo único.</p>
+            </div>
+            <div class="card">
+                <i class="ph ph-clock"></i>
+                <h3>Horários Flexíveis</h3>
+                <p>Aulas presenciais nos horários que melhor se encaixam na rotina do estudante.</p>
+            </div>
+            <div class="card">
+                <i class="ph ph-exam"></i>
+                <h3>Foco em Resultados</h3>
+                <p>Preparação intensiva para provas, vestibulares e reforço escolar com exercícios práticos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="about grid-bg">
+        
+        <div class="carousel-container">
+            <div class="carousel-slide active" style="background-image: url('fotos/1.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('fotos/2.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('fotos/3.jpg');"></div>
+        </div>
+
+        <div class="about-text">
+            <h2>Quem é o Prof. Corujinha?</h2>
+            <p>Com anos de experiência em sala de aula, o Prof. Corujinha acredita que todo aluno é capaz de aprender matemática, desde que tenha a orientação certa.</p>
+            <br>
+            <p>Conhecido pela paciência e pela didática clara, ele transforma equações complexas em conceitos simples do dia a dia. Mais do que ensinar fórmulas, o objetivo é ensinar a pensar.</p>
+            <br>
+            <ul style="margin-left: 20px;">
+                <li style="margin-bottom: 10px;">✅ Especialista em docência em matemática UniBH/Stanford</li>
+                <li style="margin-bottom: 10px;">✅ Especialista em matemática UFMG</li>
+                <li style="margin-bottom: 10px;">✅ Licenciatura em matemática UEMG</li>
+                <li>✅ Paixão por ensinar</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contato" class="contact">
+        <h2>Pronto para dominar a matemática?</h2>
+        <p>Entre em contato para verificar disponibilidade de horários e valores.</p>
+        
+        <a href="https://wa.me/+553199502113" target="_blank" class="whatsapp-btn">
+            <i class="ph ph-whatsapp-logo"></i>
+            Chamar no WhatsApp
+        </a>
+    </section>
+
+    <footer style="text-align: center; padding: 2rem; background: #0f172a; color: #64748b; font-size: 0.9rem;">
+        <p>&copy; 2025 Prof. Corujinha - Ensino de Matemática.</p>
+    </footer>
+
+    <script>
+        // --- LÓGICA DO SCROLL SUAVE ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // --- LÓGICA DE ANIMAÇÃO AO ROLAR ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.card, .about-text');
+        hiddenElements.forEach((el) => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // --- LÓGICA DO CARROSSEL DE FOTOS ---
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentSlide = 0;
+        const slideInterval = 5000; // Tempo em milissegundos (5 segundos)
+
+        function nextSlide() {
+            // Remove a classe 'active' da foto atual
+            slides[currentSlide].classList.remove('active');
+            
+            // Calcula qual é a próxima foto (volta para 0 se chegar no fim)
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            // Adiciona a classe 'active' na próxima foto
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Inicia o timer
+        setInterval(nextSlide, slideInterval);
+    </script>
+</body>
+</html>
